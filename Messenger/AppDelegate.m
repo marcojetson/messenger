@@ -20,17 +20,16 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [_webView setFrameLoadDelegate:self];
     [_webView setUIDelegate:self];
+    [_webView setPolicyDelegate:self];
     
-    _window.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
-    _window.titlebarAppearsTransparent = YES;
-    [_window setMinSize: CGSizeMake(640, 400)];
-    _window.releasedWhenClosed = NO;
+    [_window setAppearance: [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight]];
+    [_window setContentView:_webView];
+    [_window setTitle:@"Messenger"];
+    [_window setTitlebarAppearsTransparent: YES];
     
     NSURL *url = [NSURL URLWithString:@"https://www.messenger.com/"];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     [_webView.mainFrame loadRequest:urlRequest];
-    [_window setContentView:_webView];
-    [_window setTitle:@"Messenger"];
 }
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
@@ -46,15 +45,14 @@
     [alert runModal];
 }
 
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    NSURL *url = navigationAction.request.URL;
-    
-    if ([url.host hasSuffix:@"messenger.com"] || [url.scheme isEqualToString:@"file"]) {
-        decisionHandler(WKNavigationActionPolicyAllow);
-    } else {
-        decisionHandler(WKNavigationActionPolicyCancel);
-        [[NSWorkspace sharedWorkspace] openURL:url];
-    }
+- (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation
+        request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id)listener {
+    [listener use];
+}
+
+- (void)webView:(WebView *)sender decidePolicyForNewWindowAction:(NSDictionary *)actionInformation
+        request:(NSURLRequest *)request newFrameName:(NSString *)frameName decisionListener:(id<WebPolicyDecisionListener>)listener {
+    [[NSWorkspace sharedWorkspace] openURL:request.URL];
 }
 
 
@@ -62,6 +60,10 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:file ofType:@"js"];
     NSString *code = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     [webView stringByEvaluatingJavaScriptFromString:code];
+}
+
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication {
+    return YES;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
