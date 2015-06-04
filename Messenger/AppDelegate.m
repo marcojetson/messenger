@@ -67,8 +67,14 @@
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     NSURL *url = navigationAction.request.URL;
-    
-    if ([url.host length] == 0 || [url.host hasSuffix:@"messenger.com"] || [url.scheme isEqualToString:@"file"]) {
+
+    if ([url.host length] == 0 ||
+        [url.host hasSuffix:@"messenger.com"] ||
+        (
+            [url.host isEqualToString:@"www.facebook.com"] &&
+            [url.path hasPrefix:@"/login/"]
+        ) ||
+        [url.scheme isEqualToString:@"file"]) {
         decisionHandler(WKNavigationActionPolicyAllow);
     } else {
         decisionHandler(WKNavigationActionPolicyCancel);
