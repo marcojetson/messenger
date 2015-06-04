@@ -32,6 +32,7 @@
     WKUserContentController *controller = [[WKUserContentController alloc] init];
     
     [controller addUserScript:[self script:@"jquery"]];
+    [controller addUserScript:[self script:@"stylesheet"]];
     [controller addUserScript:[self script:@"messenger"]];
     
     [config setUserContentController:controller];
@@ -108,7 +109,7 @@
 }
 
 - (WKUserScript *) script: (NSString *) file {
-    NSString *path = [[NSBundle mainBundle] pathForResource:file ofType:@"js"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"scripts/%@", file] ofType:@"js"];
     NSString *code = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     WKUserScript *script = [[WKUserScript alloc] initWithSource:code injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
     return script;

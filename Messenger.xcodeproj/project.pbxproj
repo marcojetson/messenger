@@ -13,9 +13,8 @@
 		A948FB241B1F7EB9001C307C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A948FB221B1F7EB9001C307C /* MainMenu.xib */; };
 		A948FB301B1F7EB9001C307C /* MessengerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A948FB2F1B1F7EB9001C307C /* MessengerTests.m */; };
 		A948FB3A1B1F8007001C307C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A948FB391B1F8007001C307C /* WebKit.framework */; };
-		A948FB3C1B1F8805001C307C /* messenger.js in Resources */ = {isa = PBXBuildFile; fileRef = A948FB3B1B1F8805001C307C /* messenger.js */; };
-		A948FB401B1F89B5001C307C /* jquery.js in Resources */ = {isa = PBXBuildFile; fileRef = A948FB3F1B1F89B5001C307C /* jquery.js */; };
 		A948FB451B1FC172001C307C /* WebWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A948FB441B1FC172001C307C /* WebWrapper.m */; };
+		A948FB4B1B20C8DB001C307C /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = A948FB4A1B20C8DB001C307C /* scripts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,10 +39,9 @@
 		A948FB2E1B1F7EB9001C307C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A948FB2F1B1F7EB9001C307C /* MessengerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessengerTests.m; sourceTree = "<group>"; };
 		A948FB391B1F8007001C307C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		A948FB3B1B1F8805001C307C /* messenger.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = messenger.js; sourceTree = "<group>"; };
-		A948FB3F1B1F89B5001C307C /* jquery.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.js; sourceTree = "<group>"; };
 		A948FB431B1FC172001C307C /* WebWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebWrapper.h; sourceTree = "<group>"; };
 		A948FB441B1FC172001C307C /* WebWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebWrapper.m; sourceTree = "<group>"; };
+		A948FB4A1B20C8DB001C307C /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = scripts; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,12 +86,11 @@
 			isa = PBXGroup;
 			children = (
 				A948FB1B1B1F7EB9001C307C /* AppDelegate.h */,
+				A948FB4A1B20C8DB001C307C /* scripts */,
 				A948FB1C1B1F7EB9001C307C /* AppDelegate.m */,
 				A948FB201B1F7EB9001C307C /* Images.xcassets */,
 				A948FB221B1F7EB9001C307C /* MainMenu.xib */,
 				A948FB191B1F7EB9001C307C /* Supporting Files */,
-				A948FB3B1B1F8805001C307C /* messenger.js */,
-				A948FB3F1B1F89B5001C307C /* jquery.js */,
 				A948FB431B1FC172001C307C /* WebWrapper.h */,
 				A948FB441B1FC172001C307C /* WebWrapper.m */,
 			);
@@ -206,9 +203,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A948FB401B1F89B5001C307C /* jquery.js in Resources */,
 				A948FB211B1F7EB9001C307C /* Images.xcassets in Resources */,
-				A948FB3C1B1F8805001C307C /* messenger.js in Resources */,
+				A948FB4B1B20C8DB001C307C /* scripts in Resources */,
 				A948FB241B1F7EB9001C307C /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
