@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) NSWindow *window;
 @property (strong, nonatomic) WebWrapper *webWrapper;
+@property (strong, nonatomic) NSString *notificationCount;
 
 - (WKUserScript *) script: (NSString *) file;
 
@@ -24,7 +25,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [_window setAppearance: [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight]];
-    [_window setTitle:@"Messenger"];
     [_window setTitlebarAppearsTransparent: YES];
     
     // setup web wrapper
@@ -42,6 +42,8 @@
     [_window setContentView:_webWrapper];
     [_webWrapper setNavigationDelegate:self];
     [_webWrapper setUIDelegate:self];
+    [_webWrapper addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
+
     
     NSURL *url = [NSURL URLWithString:@"https://www.messenger.com/"];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
@@ -79,6 +81,29 @@
     } else {
         decisionHandler(WKNavigationActionPolicyCancel);
         [[NSWorkspace sharedWorkspace] openURL:url];
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    NSString *title = change[NSKeyValueChangeNewKey];
+    
+    [_window setTitle:title];
+    
+    if ([title isEqualToString:@"Messenger"]) {
+        [self updateNotificationCount:@""];
+        return;
+    }
+    
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"\\(([0-9]+)\\) Messenger" options:0 error:nil];
+    NSTextCheckingResult* match = [regex firstMatchInString:title options:0 range:NSMakeRange(0, title.length)];
+    if (match) {
+        [self updateNotificationCount:[title substringWithRange:[match rangeAtIndex:1]]];
+    }
+}
+
+- (void)updateNotificationCount:(NSString *)notificationCount {
+    if (![_notificationCount isEqualToString:notificationCount]) {
+        [[NSApp dockTile] setBadgeLabel:notificationCount];
     }
 }
 
