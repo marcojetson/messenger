@@ -7,13 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <WebKit/WebKit.h>
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
-
-@property (assign) IBOutlet WebView *webView;
-
-- (void) inject: (NSString *) file into:(WebView *) webView;
-
 @end
 
