@@ -1,5 +1,9 @@
 jQuery.noConflict();
 
-jQuery(document).on("click", "input[type='file']", function () {
-    console.log("To upload media, drag and drop the file into the WhatsApp Web window.");
-});
+var styles = "\
+._4rv4._5vn4 > :first-child {\
+    display: none;\
+}\
+";
+
+jQuery("<style>").html(styles).appendTo("body");
